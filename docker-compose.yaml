@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  vue_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aflores-vue-app
+    ports:
+      - 3838:80
+
+  vue_nginx:
+    image: nginx:1.25.3-alpine
+    container_name: aflores-vue-nginx
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    depends_on:
+      - vue_app
+
